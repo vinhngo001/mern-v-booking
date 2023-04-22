@@ -1,0 +1,9 @@
+<div class="jumbotron">
+    <h1>Welcome to QUT Booking</h1>
+    <p class="lead">Create and manage appointments is easy</p>
+    {{#if user}}
+        <p>Welcome {{user}}</p>
+    {{else}}
+        <a href="{{signInUrl}}" class="btn btn-primary btn-large"><i class="fab fa-microsoft"></i> Login with Microsoft</a>
+    {{/if}}
+</div>

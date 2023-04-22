@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{title}}</title>
+
+    <!--Bootstrap CSS-->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!--To Work with icons-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+    <!--Own style-->
+    <link href="/css/style.css" rel="stylesheet">
+
+</head>
+
+
+<body>
+    {{> _navbar}}
+    <!--MAIN BODY-->
+    <main role="main" class="container">
+        {{{body}}}
+
+        <!--Debug output-->
+        {{#if debug}}
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Debug</h5>
+                <pre class="bg-light border p-3"><code>{{debug}}</code></pre>
+            </div>
+        </div>
+        {{/if}}
+
+        <div style="height: 200px"></div>
+        <!--Just to give some space-->
+    </main>
+
+    {{> _footer}}
+
+    <!--BOOTSTRAP CORE JS-->
+    <script src="https://code.jquery.com/jquery-3.4.0.js"
+        integrity="sha256-DYZMCC8HTC+QDr5QNaIcfR7VSPtcISykd+6eSmBW5qo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+    <!--Handlebars-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+
+    <!--<script id="daysTemplate" type="text/x-handlebars-template">
+        {{#each days}}
+        <option value="{{this}}">{{this}}</option>
+        {{/each}}
+    </script>-->
+
+    <script>
+        $(document).ready(function () {
+            //const template_days = Handlebars.compile($('#daysTemplate').html())
+            // When the service is chosen
+            $('#services').on('change', () => {
+                // Delete the old options in #days
+                $('#days').html('<option selected disabled>Choose service</option>');
+
+                // Pack data to send to server
+                let service = $('#services').val();
+                let email = $('#emailToBook').val();
+
+                $.post('/events/getdays', { service: service, email: email }, (data) => {
+                    //const content = template_days({ 'days': data.days });
+                    //const content = template_days({'days': ['a', 'b', 'c']});
+                    //alert(data.days);
+                    $.each(data.days, (index, item) => {
+                        const option = document.createElement('option');
+                        option.value = item.day;
+                        option.innerHTML = item.formatted_day;
+                        $('#days').append(option);
+                    });
+
+                    //location.reload();
+                    //alert(data.days);
+
+                });
+                return false;
+            });
+
+            $('#days').on('change', () => {
+                // Delete the old options in #days
+                $('#times').html('<option selected disabled>Choose date</option>');
+
+                // Pack data to send to server
+                let service = $('#services').val();
+                let day = $('#days').val();
+                let email = $('#emailToBook').val();
+
+                $.post('/events/gettimes', { service: service, day: day, email: email }, (data) => {
+                    $.each(data.times, (index, item) => {
+                        const option = document.createElement('option');
+                        option.value = item;
+                        option.innerHTML = item;
+                        $('#times').append(option);
+                    });
+                });
+                return false;
+            });
+        });
+    </script>
+
+
+</body>
+
+</html>
