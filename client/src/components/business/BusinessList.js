@@ -3,6 +3,7 @@ import { getBusinesses, deleteBusiness } from '../../redux/actions/businessActio
 import { loadUser } from '../../redux/actions/authActions';
 import { useDispatch, useSelector } from "react-redux";
 import { Alert, Button, Container, Table } from "reactstrap";
+
 const BusinessList = () => {
     const { myauth, mybusiness } = useSelector(state => state);
     const dispatch = useDispatch();
@@ -10,9 +11,10 @@ const BusinessList = () => {
     useEffect(() => {
         dispatch(loadUser());
     }, [dispatch]);
-    // const onDeleteClick = () => {
 
-    // }
+    const onDeleteClick = (id) => {
+        dispatch(deleteBusiness(id))
+    }
     useEffect(() => {
         dispatch(getBusinesses(myauth.auth_info.email))
     }, [myauth.auth_info.email, dispatch])
@@ -59,10 +61,7 @@ const BusinessList = () => {
                                                 <Button
                                                     color='danger'
                                                     className='text-white'
-                                                // onClick={this.onDeleteClick.bind(
-                                                //   this,
-                                                //   business._id
-                                                // )}
+                                                    onClick={onDeleteClick(business._id)}
                                                 >
                                                     <i className='fas fa-trash-alt mr-1'></i>
                                                     Delete
