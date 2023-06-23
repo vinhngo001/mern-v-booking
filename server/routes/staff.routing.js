@@ -58,6 +58,23 @@ router.get("/list", async (req, res, next) => {
     } else {
         res.redirect("/");
     }
-})
+});
 
+router.post("/create", async (req, res, next) => {
+    const { email, phone, name } = req.body;
+    const accessIdentity = await authHelper.getAccessToken(req.cookies, res);
+    if (accessIdentity) {
+        const boss_email = accessIdentity.email;
+        const newStaff = {
+            boss: boss_email,
+            ...req.body
+        }
+        new Staff({ ...newStaff })
+            .save()
+            .then(staff => res.redirect("/staff/list"))
+            .catch(err => next(err));
+    } else {
+        res.redirect("/");
+    }
+})
 module.exports = router;
