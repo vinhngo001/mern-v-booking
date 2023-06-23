@@ -44,7 +44,7 @@ router.get("/list", async (req, res, next) => {
             },
             user: accessIdentity.username
         }
-
+        console.log({accessIdentity})
         // Get all businesss
         Staff.find({
             boss: accessIdentity.email

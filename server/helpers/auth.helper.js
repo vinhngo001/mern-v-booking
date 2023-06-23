@@ -186,7 +186,10 @@ exports.getAccessToken = async (cookies, res) => {
         const refresh_token = cookies.graph_refresh_token;
         if (refresh_token) {
             const newToken = await oauth2.accessToken.create({ refresh_token: refresh_token }).refresh();
-
+            // console.log({ newToken });
+            // Save the new token to cookie.
+            // If you go back to the function definition, all the important info are saved in cookies again
+            await saveValuesToCookie(newToken, res);
             const result = {
                 access_token: newToken.token.access_token,
                 username: newToken.token.id_token.name,

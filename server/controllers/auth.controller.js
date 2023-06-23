@@ -49,7 +49,7 @@ const authController = {
     authorize: async (req, res) => {
         try {
             const accessIdentity = await authHelper.getAccessToken(req.cookies, res);
-            console.log({ accessIdentity })
+            // console.log({ accessIdentity })
             let parms = {
                 title: 'V Booking',
                 active: {
