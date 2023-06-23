@@ -189,7 +189,7 @@ exports.getAccessToken = async (cookies, res) => {
             // console.log({ newToken });
             // Save the new token to cookie.
             // If you go back to the function definition, all the important info are saved in cookies again
-            await saveValuesToCookie(newToken, res);
+            // await saveValuesToCookie(newToken, res);
             const result = {
                 access_token: newToken.token.access_token,
                 username: newToken.token.id_token.name,
