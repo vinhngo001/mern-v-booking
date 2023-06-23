@@ -12,9 +12,6 @@ const connectDB = require("./configs/db.config");
 // Handlebars helpers
 const { select } = require('./helpers/hbs.helper');
 
-// Map global Promises
-// mongoose.Promise = global.Promise;
-
 // Mongoose connect
 connectDB();
 

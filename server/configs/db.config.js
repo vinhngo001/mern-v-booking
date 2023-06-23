@@ -1,4 +1,8 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+
+// Map global Promises
+mongoose.Promise = global.Promise;
+
 const connectDB = async () => {
 	try {
 		await mongoose.connect(

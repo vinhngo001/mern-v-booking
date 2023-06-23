@@ -3,6 +3,7 @@ const userRouter = require("./user.routing");
 const businessRouter = require("./business.routing");
 const calendarRouter = require("./calendar.routing");
 const eventRouter = require("./events.routing");
+const staffRouter = require("./staff.routing");
 
 // const baseUrl = '/api';
 
@@ -12,6 +13,7 @@ function createRouter(app) {
     app.use('/business', businessRouter);
     app.use('/calendar', calendarRouter);
     app.use('/events', eventRouter);
+    app.use('/staff', staffRouter);
 }
 
 module.exports = createRouter
