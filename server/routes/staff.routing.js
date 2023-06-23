@@ -25,8 +25,13 @@ router.get("/create", async (req, res) => {
             res.redirect('/');
         }
     } catch (error) {
-        console.log(error);
-        return res.status(500).json(error.message);
+        console.error(err.message);
+        parms.message = 'Error retrieving messages';
+        parms.error = {
+            status: `${err.code}: ${err.message}`
+        };
+        parms.debug = JSON.stringify(err.body, null, 2);
+        res.render('errors/error', parms);
     }
 });
 
@@ -55,7 +60,7 @@ router.get("/list", async (req, res, next) => {
                 status: `${err.code}: ${err.message}`
             };
             parms.debug = JSON.stringify(err.body, null, 2);
-            res.render('error', parms);
+            res.render('errors/error', parms);
         })
     } else {
         res.redirect("/");
@@ -81,7 +86,7 @@ router.post("/create", async (req, res, next) => {
                     status: `${err.code}: ${err.message}`
                 };
                 parms.debug = JSON.stringify(err.body, null, 2);
-                res.render('error', parms);
+                res.render('errors/error', parms);
             });
     } else {
         res.redirect("/");
@@ -119,7 +124,7 @@ router.get('/edit/:id', async (req, res, next) => {
                 status: `${err.code}: ${err.message}`
             };
             parms.debug = JSON.stringify(err.body, null, 2);
-            res.render('error', parms);
+            res.render('errors/error', parms);
         });
     } else {
         res.redirect('/');
@@ -138,7 +143,7 @@ router.delete('/delete/:id', async (req, res, next) => {
                     status: `${err.code}: ${err.message}`
                 };
                 parms.debug = JSON.stringify(err.body, null, 2);
-                res.render('error', parms);
+                res.render('errors/error', parms);
             })
     } else {
         res.redirect("/");

@@ -7,13 +7,12 @@ const authController = {
             // console.log({ code })
             // If code is present, use it
             if (code) {
-                let token;
-                token = await authHelper.getTokenFromCode(code, res);
-                res.json(token);
-                // res.redirect('http://localhost:5002');
+                const token = await authHelper.getTokenFromCode(code, res);
+                // res.json(token);
+                res.redirect('http://localhost:5002');
             } else {
                 // Otherwise complain
-                res.render('error', {
+                res.render('errors/error', {
                     title: 'Error',
                     message: 'Authorization error',
                     error: {
@@ -39,7 +38,7 @@ const authController = {
             console.log('receive call from action');
             authHelper.clearCookies(res);
             // Redirect to home
-            res.redirect('http://localhost:5002/');
+            res.redirect('http://localhost:5002');
             // res.status(200).json("Signed out successfully");
         } catch (error) {
             console.log(error);
@@ -66,7 +65,7 @@ const authController = {
                 parms.signInUrl = authHelper.getAuthUrl();
                 parms.debug = parms.signInUrl;
             }
-
+            // res.render('index/welcome', parms);
             res.setHeader('Access-Control-Allow-Credentials', true);
             res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5002');
             res.status(200).json(parms);
