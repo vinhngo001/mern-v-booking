@@ -14,8 +14,8 @@ function createRouter(app) {
     app.use('/business', businessRouter);
     app.use('/calendar', calendarRouter);
     app.use('/events', eventRouter);
-    app.use('/staffs', staffRouter);
-    // app.use('/mails', mailRouter);
+    app.use('/staff', staffRouter);
+    app.use('/mail', mailRouter);
 }
 
 module.exports = createRouter
