@@ -55,15 +55,15 @@ router.get("/list", async (req, res, next) => {
                 status: `${err.code}: ${err.message}`
             };
             parms.debug = JSON.stringify(err.body, null, 2);
-            next(err);
+            res.render('error', parms);
         })
     } else {
         res.redirect("/");
     }
 });
 
+// CREATE / POST
 router.post("/create", async (req, res, next) => {
-    const { email, phone, name } = req.body;
     const accessIdentity = await authHelper.getAccessToken(req.cookies, res);
     if (accessIdentity) {
         const boss_email = accessIdentity.email;
@@ -76,17 +76,55 @@ router.post("/create", async (req, res, next) => {
             .then(staff => res.redirect("/staff/list"))
             .catch(err => {
                 console.log(err.message);
-                let parms = {};
                 parms.message = 'Error retrieving messages';
                 parms.error = {
                     status: `${err.code}: ${err.message}`
                 };
                 parms.debug = JSON.stringify(err.body, null, 2);
-                next(err);
+                res.render('error', parms);
             });
     } else {
         res.redirect("/");
     }
 });
+
+// EDIT /GET
+router.get('/edit/:id', async (req, res, next) => {
+    const id = req.params.id;
+    const accessIdentity = await authHelper.getAccessToken(req.cookies, res);
+
+    if (accessIdentity) {
+        const email = accessIdentity.email;
+
+        let parms = {
+            title: 'Edit Staff',
+            active: {
+                staff: true
+            },
+            user: accessIdentity.username
+        };
+
+        Staff.findOne({
+            _id: id
+        }).then(staff => {
+            if (staff.boss != email) {
+                res.redirect('/staff/list');
+            } else {
+                parms.staff = staff;
+                res.render('staffs/edit', parms);
+            }
+        }).catch(err => {
+            parms.message = 'Error retrieving messages';
+            parms.error = {
+                status: `${err.code}: ${err.message}`
+            };
+            parms.debug = JSON.stringify(err.body, null, 2);
+            res.render('error', parms);
+        });
+    } else {
+        res.redirect('/');
+    }
+});
+
 
 module.exports = router;

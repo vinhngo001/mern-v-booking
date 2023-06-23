@@ -38,7 +38,7 @@ router.get("/", async (req, res, next) => {
                 status: `${err.code}: ${err.message}`
             };
             parms.debug = JSON.stringify(err.body, null, 2);
-            next(err);
+            res.render('error', parms);
         }
     }else{
         res.redirect("/");
