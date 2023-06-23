@@ -55,15 +55,19 @@ const eventController = {
             return res.status(500).json({ msg: error.message });
         }
     },
+    create: async(req,res)=>{
+        try{
+
+        }catch(err){
+            
+        }
+    },
     postCreate: async (req, res) => {
         try {
             const { subject, message, name, client_email, business, time, owner_email } = req.body;
             // START AUTH  
-
-            const user = await userModel.findOne({ email: owner_email });
-            if (!user) {
-
-            }
+            // const user = await userModel.findOne({ email: owner_email });
+            // if (!user) {}
 
             const refresh_token = user.refresh_token;
             const credentials = {
@@ -77,12 +81,13 @@ const eventController = {
                     tokenPath: 'common/oauth2/v2.0/token'
                 }
             }
+            
             const oauth2 = require('simple-oauth2').create(credentials);
             const newToken = await oauth2.accessToken.create({
                 refresh_token: refresh_token
             }).refresh();
 
-            console.log({ newToken })
+            // console.log({ newToken })
             await authHelper.saveValuesToCookie(newToken, res);
 
             //Initialize Graph Client
@@ -92,7 +97,7 @@ const eventController = {
                 }
             });
 
-            console.log({ client });
+            // console.log({ client });
             if (!client) {
                 return res.status(401).json({ msg: "UNAUTHORIZED" });
             }

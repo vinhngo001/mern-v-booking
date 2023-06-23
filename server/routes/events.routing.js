@@ -14,6 +14,13 @@ router.get('/:id', eventCtrl.list);
  * @desc SUBMIT FORM TO BOOK APPOINTMENT
  * @access Public
 */
+router.get('/create/:id', eventCtrl.create);
+
+/**
+ * @route POST api/events
+ * @desc SUBMIT FORM TO BOOK APPOINTMENT
+ * @access Public
+*/
 router.post('/', eventCtrl.postCreate);
 
 /**
