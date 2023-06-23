@@ -1,0 +1,32 @@
+<div class="card card-body">
+    <h3>Staff Information</h3>
+    <form action="/staff/create" method="POST">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" name="name" required>
+            <!--You can add "required" for client side validation-->
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" name="email" required>
+            <!--You can add "required" for client side validation-->
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone number</label>
+            <input type="text" class="form-control" name="phone" required>
+            <!--You can add "required" for client side validation-->
+        </div>
+        <div class="form-group">
+            <label for="availability">Availability</label>
+            <input type="text" class="form-control" name="availability">
+            <!--You can add "required" for client side validation-->
+        </div>
+        <div class="form-group">
+            <label for="services">Services</label>
+            <input type="text" class="form-control" name="services">
+            <!--You can add "required" for client side validation-->
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
