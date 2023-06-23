@@ -82,6 +82,7 @@ const saveValuesToCookie = async (token, res) => {
             }
             await new userModel(data).save();
         }
+
         // Save user info in a cookie
         res.cookie('graph_user_name', user_outlook.name, {
             maxAge: 3600000,
@@ -111,16 +112,19 @@ const saveValuesToCookie = async (token, res) => {
             httpOnly: false
         });
 
-        /*console.log('========THIS IS EXPIRE TIME');
+        /*
+        console.log('========THIS IS EXPIRE TIME');
         console.log(token.token.expires_at);
         console.log(token.token.expires_in);
-        console.log(token.token.expires_at.getTime());*/
+        console.log(token.token.expires_at.getTime());
+        */
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: error.message })
     }
 }
 exports.saveValuesToCookie = saveValuesToCookie;
+
 // CLEAR COOKIES TO ASSIST LOGOUT
 exports.clearCookies = res => {
     try {
@@ -182,15 +186,21 @@ exports.getAccessToken = async (cookies, res) => {
                 return result;
             }
         }
-        // No token or token is expired, do we have a refresh token
+        
+        // No token or it's expired, do we have a refresh token
         const refresh_token = cookies.graph_refresh_token;
         if (refresh_token) {
-            const newToken = await oauth2.accessToken.create({ refresh_token: refresh_token }).refresh();
-            // console.log({ newToken });
+            const newToken = await oauth2.accessToken
+                .create({
+                    refresh_token: refresh_token
+                })
+                .refresh();
+
             // Save the new token to cookie.
             // If you go back to the function definition, all the important info are saved in cookies again
-            // await saveValuesToCookie(newToken, res);
-            const result = {
+            saveValuesToCookie(newToken, res);
+
+            var result = {
                 access_token: newToken.token.access_token,
                 username: newToken.token.id_token.name,
                 email: newToken.token.id_token.preferred_username

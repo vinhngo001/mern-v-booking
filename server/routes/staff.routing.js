@@ -126,5 +126,22 @@ router.get('/edit/:id', async (req, res, next) => {
     }
 });
 
-
+// DELETE STAFF
+router.delete('/delete/:id', async (req, res, next) => {
+    const accessIdentity = await authHelper.getAccessToken(req.cookies, res);
+    if (accessIdentity) {
+        Staff.findOneAndDelete({ _id: req.params.id, boss: accessIdentity.email })
+            .then(staff => res.redirect("/staff/list"))
+            .catch(err => {
+                parms.message = 'Error retrieving messages';
+                parms.error = {
+                    status: `${err.code}: ${err.message}`
+                };
+                parms.debug = JSON.stringify(err.body, null, 2);
+                res.render('error', parms);
+            })
+    } else {
+        res.redirect("/");
+    }
+})
 module.exports = router;
