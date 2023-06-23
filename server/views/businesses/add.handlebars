@@ -1,0 +1,174 @@
+<div class="card card-body">
+    <h3>Service Information</h3>
+    <form action="/business/create" method="POST">
+        <div class="form-group">
+            <label for="name">Service name</label>
+            <input type="text" class="form-control" name="name" required>
+            <!--You can add "required" for client side validation-->
+        </div>
+        <div class="form-group">
+            <label for="address">Location</label>
+            <input type="text" class="form-control" name="address" required>
+            <!--You can add "required" for client side validation-->
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone number</label>
+            <input type="text" class="form-control" name="phone" required>
+            <!--You can add "required" for client side validation-->
+        </div>
+        <div class="form-group">
+            <label for="desc">Description</label>
+            <input type="text" class="form-control" name="desc">
+            <!--You can add "required" for client side validation-->
+        </div>
+        <div class="form-group">
+            <label for="website">Website</label>
+            <input type="text" class="form-control" name="website">
+            <!--You can add "required" for client side validation-->
+        </div>
+        <div class="form-group">
+            <label for="duration">Default duration</label>
+            <div class="input-group mb-3 form-check-inline">
+                <select name="defaultHour" class="custom-select" id="durationHour">
+                    <option value="0">0</option>
+                    <option value="1" selected>1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+                <div class="input-group-append mr-3">
+                    <label class="input-group-text" for="durationHour">Hours</label>
+                </div>
+
+                <select name="defaultMin" class="custom-select" id="durationMinute">
+                    <option value="0" selected>0</option>
+                    <option value="15">15</option>
+                    <option value="30">30</option>
+                    <option value="45">45</option>
+                </select>
+                <div class="input-group-append mr-3">
+                    <label class="input-group-text" for="durationMinute">Minutes</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="duration">Buffer time your customer can't book</label>
+            <div class="custom-control custom-switch">
+                <input type="checkbox" name="bufferSwitch" id="bufferSwitch" class="custom-control-input">
+                <label for="bufferSwitch" class="custom-control-label">On/Off</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="bufferBefore">Before:</label>
+            <div class="input-group mb-3 form-check-inline" id="bufferBefore">
+                <select name="bufferBeforeHour" class="custom-select" id="bufferBeforeHour">
+                    <option value="0">0</option>
+                    <option value="1" selected>1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+                <div class="input-group-append mr-3">
+                    <label class="input-group-text" for="bufferBeforeHour">Hours</label>
+                </div>
+
+                <select name="bufferBeforeMinute" class="custom-select" id="bufferBeforeMinute">
+                    <option value="0">0</option>
+                    <option value="15" selected>15</option>
+                    <option value="30">30</option>
+                    <option value="45">45</option>
+                </select>
+                <div class="input-group-append mr-3">
+                    <label class="input-group-text" for="bufferBeforeMinute">Minutes</label>
+                </div>
+            </div>
+
+            <label for="bufferAfter">After:</label>
+            <div class="input-group mb-3 form-check-inline" id="bufferAfter">
+                <select name="bufferAfterHour" class="custom-select" id="bufferAfterHour">
+                    <option value="0">0</option>
+                    <option value="1" selected>1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+                <div class="input-group-append mr-3">
+                    <label class="input-group-text" for="bufferAfterHour">Hours</label>
+                </div>
+
+                <select name="bufferAfterMinute" class="custom-select" id="bufferAfterMinute">
+                    <option value="0">0</option>
+                    <option value="15" selected>15</option>
+                    <option value="30">30</option>
+                    <option value="45">45</option>
+                </select>
+                <div class="input-group-append mr-3">
+                    <label class="input-group-text" for="bufferAfterMinute">Minutes</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="publishingOption">Publishing Options</label>
+            <div class="custom-control custom-checkbox" id="publishingOption">
+                <input type="checkbox" class="custom-control-input" id="publish" name="publish">
+                <label class="custom-control-label" for="publish">Show this service on publishing page</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="schedulepolicy">Scheduling Policy</label><br>
+            <small>Settings for when customers can book services</small>
+        </div>
+
+        <div class="form-group">
+            <label for="increment">Time increments:<br>Show available times in increments of</label><br>
+            <div class="input-group mb-3 form-check-inline" id="increment">
+                <select name="incrementHour" class="custom-select" id="incrementHour">
+                    <option value="0" selected>0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+                <div class="input-group-append mr-3">
+                    <label class="input-group-text" for="incrementHour">Hours</label>
+                </div>
+
+                <select name="incrementMin" class="custom-select" id="incrementMinute">
+                    <option value="0">0</option>
+                    <option value="15" selected>15</option>
+                    <option value="30">30</option>
+                    <option value="45">45</option>
+                </select>
+                <div class="input-group-append mr-3">
+                    <label class="input-group-text" for="incrementMinute">Minutes</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="minlead" class="col-6 col-form-label">Minimum lead time:<br><small>Minimum lead time for bookings and cancellations (in hours)</small></label>
+            <div class="col-6">
+                <input name="minlead" class="form-control" type="number" id="minlead" min="1">
+            </div>
+        </div>
+            
+        <div class="form-group row">
+            <label for="maxlead" class="col-6 col-form-label">
+                Maximum lead time:<br><small>Maximum number of days in advance that a booking can be made</small>
+            </label>
+            <div class="col-6">
+                <input name="maxlead" class="form-control" type="number" id="maxlead" min="1" max="30">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="staff">Staff</label>
+            <div class="custom-control custom-checkbox" id="staff">
+                <input type="checkbox" class="custom-control-input" id="staffCheck" name="staff">
+                <label class="custom-control-label" for="staffCheck">Allow customers to choose a specific person for the
+                    booking</label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

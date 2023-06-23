@@ -4,12 +4,29 @@ const businessController = {
     list: async (req, res) => {
         try {
             const businessList = await businessModel.find({ email: req.body.email });
-            res.json({businesses: businessList})
+            res.json({ businesses: businessList })
         } catch (error) {
             return res.status(500).json({ msg: error.message });
         }
     },
     create: async (req, res) => {
+        const accessIdentity = await authHelper.getAccessToken(req.cookies, res);
+
+        if (accessIdentity) {
+            let parms = {
+                title: 'QUT Booking - Create Business',
+                active: {
+                    business: true
+                },
+                user: accessIdentity.username
+            };
+
+            res.render('businesses/add', parms);
+        } else {
+            res.redirect('/');
+        }
+    },
+    postCreate: async (req, res) => {
         try {
             const newBusiness = await new businessModel({ ...req.body });
             await newBusiness.save();

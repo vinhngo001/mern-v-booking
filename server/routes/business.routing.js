@@ -14,7 +14,9 @@ router.get('/:id', businessCtrl.getOne);
  * @desc Create new business
  * @access Public
 */
-router.post('/create', businessCtrl.create);
+router.post('/create', businessCtrl.postCreate);
+
+router.get('/create', businessCtrl.create);
 
 /**
  * @route GET api/business
