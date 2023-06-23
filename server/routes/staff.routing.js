@@ -1,11 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const authHelper = require("../helpers/auth.helper");
-const graph = require("@microsoft/microsoft-graph-client");
+// const graph = require("@microsoft/microsoft-graph-client");
 require('isomorphic-fetch');
-
-const mongoose = require("mongoose");
-
 
 //Load Staff Model
 const Staff = require("../models/staff.model");
