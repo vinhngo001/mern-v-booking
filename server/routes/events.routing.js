@@ -8,12 +8,13 @@ const eventCtrl = require("../controllers/event.controller");
  * @access Public
 */
 router.get('/:id', eventCtrl.list);
+
 /**
  * @route POST api/events
  * @desc SUBMIT FORM TO BOOK APPOINTMENT
  * @access Public
 */
-router.post('/', eventCtrl.create);
+router.post('/', eventCtrl.postCreate);
 
 /**
  * @route POST api/events/getDays

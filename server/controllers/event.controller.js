@@ -55,7 +55,7 @@ const eventController = {
             return res.status(500).json({ msg: error.message });
         }
     },
-    create: async (req, res) => {
+    postCreate: async (req, res) => {
         try {
             const { subject, message, name, client_email, business, time, owner_email } = req.body;
             // START AUTH  

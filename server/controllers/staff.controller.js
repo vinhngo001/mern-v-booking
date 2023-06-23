@@ -87,10 +87,80 @@ const staffController = {
         }
     },
     edit: async (req, res, next) => {
+        const id = req.params.id;
+        const accessIdentity = await authHelper.getAccessToken(req.cookies, res);
 
+        if (accessIdentity) {
+            const email = accessIdentity.email;
+
+            let parms = {
+                title: 'Edit Staff',
+                active: {
+                    staff: true
+                },
+                user: accessIdentity.username
+            };
+
+            Staff.findOne({
+                _id: id
+            }).then(staff => {
+                if (staff.boss != email) {
+                    res.redirect('/staff/list');
+                } else {
+                    parms.staff = staff;
+                    res.render('staffs/edit', parms);
+                }
+            }).catch(err => {
+                parms.message = 'Error retrieving messages';
+                parms.error = {
+                    status: `${err.code}: ${err.message}`
+                };
+                parms.debug = JSON.stringify(err.body, null, 2);
+                res.render('errors/error', parms);
+            });
+        } else {
+            res.redirect('/');
+        }
     },
-    update: async (req, res, next) => {
-
+    putEdit: async (req, res, next) => {
+        const accessIdentity = await authHelper.getAccessToken(req.cookies, res);
+        if (accessIdentity) {
+            Staff.findOneAndUpdate(
+                {
+                    _id: req.params.id,
+                    boss: accessIdentity.email
+                },
+                { ...req.body },
+                { new: true, runValidators: true })
+                .then(staff => res.redirect("/staff/list"))
+                .catch(err => {
+                    parms.message = 'Error retrieving messages';
+                    parms.error = {
+                        status: `${err.code}: ${err.message}`
+                    };
+                    parms.debug = JSON.stringify(err.body, null, 2);
+                    res.render('errors/error', parms);
+                });
+        } else {
+            res.redirect("/");
+        }
+    },
+    delete: async (req, res, next) => {
+        const accessIdentity = await authHelper.getAccessToken(req.cookies, res);
+        if (accessIdentity) {
+            Staff.findOneAndDelete({ _id: req.params.id, boss: accessIdentity.email })
+                .then(staff => res.redirect("/staff/list"))
+                .catch(err => {
+                    parms.message = 'Error retrieving messages';
+                    parms.error = {
+                        status: `${err.code}: ${err.message}`
+                    };
+                    parms.debug = JSON.stringify(err.body, null, 2);
+                    res.render('errors/error', parms);
+                })
+        } else {
+            res.redirect("/");
+        }
     }
 }
 
