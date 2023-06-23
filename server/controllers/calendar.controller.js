@@ -28,10 +28,13 @@ const calendarController = {
                 const end = new Date(new Date(start).setDate(start.getDate() + 7));
 
                 // Get the first 10 events for the coming week
-                const result = await client.api(`/me/calendarView?startDateTime=${start.toISOString()}&endDateTime=${end.toISOString()}`)
+                const result = await client
+                    .api(`/me/calendarView?startDateTime=${start.toISOString()}&endDateTime=${end.toISOString()}`)
                     .top(10).select('subject, start, end,attendees');
                 parms.events = result.value;
+
                 res.json(parms);
+                // res.render('calendar/index',parms)
             } else {
                 return res.status(400).json({ msg: "Access denined" });
             }

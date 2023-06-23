@@ -6,7 +6,6 @@ const mailController = {
     get: async (req, res, next) => {
 
         const accessIdentity = await authHelper.getAccessToken(req.cookies, res);
-
         if (accessIdentity) {
             let parms = {
                 title: 'Inbox',
@@ -19,7 +18,7 @@ const mailController = {
             // Initialize Graph client
             const client = graph.Client.init({
                 authProvider: (done) => {
-                    done(null, accessIdentity.access_token);
+                    done(null, accessIdentity.accessToken);
                 }
             });
 
@@ -31,7 +30,7 @@ const mailController = {
                     .orderby('receivedDateTime DESC')
                     .get();
 
-                console.log({ result });
+                // console.log({ result });
                 parms.messages = result.value;
                 res.render('mails/index', parms);
             } catch (err) {

@@ -1,0 +1,20 @@
+<form id="bookingForm" action="/events/create" method="POST">
+    <input type="hidden" name="email" value="{{email}}" id="emailToBook">
+    <select name="services" class="custom-select" id="services" required>
+        <option selected disabled>Choose service</option>
+        {{#each businesses}}
+        <option value="{{name}}">{{name}}</option>
+        {{/each}}
+    </select>
+    <select name="days" id="days" class="custom-select" required>
+        <option selected disabled>Choose service first</option>
+        <!--{{#each days}}
+        <option value="{{this}}">{{this}}</option>
+        {{/each}}-->
+    </select>
+    <select name="times" id="times" class="custom-select" required>
+        <option selected disabled>Choose date first</option>
+    </select>
+    <!--<div id="test"></div>-->
+    <button class="btn btn-primary" type="submit">Submit</button>
+</form>
