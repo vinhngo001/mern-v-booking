@@ -3,11 +3,18 @@ const router = express.Router();
 const businessCtrl = require("../controllers/business.controller");
 
 /**
- * @route GET api/business
- * @desc Get one business
+ * @route GET business/list
+ * @desc Get all business
  * @access Public
 */
-router.get('/:id', businessCtrl.getOne);
+router.get('/list', businessCtrl.getList);
+
+/**
+ * @route CREATE /GET
+ * @desc Get create one business
+ * @access Public
+*/
+router.get('/create', businessCtrl.create);
 
 /**
  * @route POST api/business/create
@@ -16,7 +23,12 @@ router.get('/:id', businessCtrl.getOne);
 */
 router.post('/create', businessCtrl.postCreate);
 
-router.get('/create', businessCtrl.create);
+/**
+ * @route GET api/business
+ * @desc Get one business
+ * @access Public
+*/
+router.get('/:id', businessCtrl.getOne);
 
 /**
  * @route GET api/business

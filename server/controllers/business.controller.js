@@ -1,3 +1,4 @@
+const authHelper = require("../helpers/auth.helper")
 const businessModel = require("../models/business.model");
 
 const businessController = {
@@ -6,7 +7,38 @@ const businessController = {
             const businessList = await businessModel.find({ email: req.body.email });
             res.json({ businesses: businessList })
         } catch (error) {
+            console.log(error);
             return res.status(500).json({ msg: error.message });
+        }
+    },
+    getList: async (req, res, next) => {
+        const accessIdentity = await authHelper.getAccessToken(req.cookies, res);
+
+        if (accessIdentity) {
+            let parms = {
+                title: 'All services',
+                active: {
+                    business: true
+                },
+                user: accessIdentity.username
+            };
+
+            // Get all businesses
+            businessModel.find({
+                email: accessIdentity.email
+            }).then(businesses => {
+                parms.businesses = businesses;
+                res.render('businesses/index', parms);
+            }).catch(err => {
+                parms.message = 'Error retrieving messages';
+                parms.error = {
+                    status: `${err.code}: ${err.message}`
+                };
+                parms.debug = JSON.stringify(err.body, null, 2);
+                res.render('errors/error', parms);
+            });
+        } else {
+            res.redirect('/');
         }
     },
     create: async (req, res) => {
@@ -32,6 +64,7 @@ const businessController = {
             await newBusiness.save();
             res.json({ business: newBusiness });
         } catch (error) {
+            console.log(error);
             return res.status(500).json({ msg: error.message });
         }
     },

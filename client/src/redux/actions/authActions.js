@@ -27,7 +27,7 @@ export const loadUser = () => {
 			});
 		} catch (error) {
 			console.log(error);
-			alert(error.response.data || error);
+			alert(error?.response?.data || error);
 		}
 	};
 

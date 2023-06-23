@@ -186,19 +186,19 @@ exports.getAccessToken = async (cookies, res) => {
                 return result;
             }
         }
-        
+
         // No token or it's expired, do we have a refresh token
         const refresh_token = cookies.graph_refresh_token;
         if (refresh_token) {
             const newToken = await oauth2.accessToken
-                .create({
-                    refresh_token: refresh_token
-                })
+                .create({ refresh_token: refresh_token })
                 .refresh();
+
+            // console.log({ newToken });
 
             // Save the new token to cookie.
             // If you go back to the function definition, all the important info are saved in cookies again
-            saveValuesToCookie(newToken, res);
+            await saveValuesToCookie(newToken, res);
 
             var result = {
                 access_token: newToken.token.access_token,
