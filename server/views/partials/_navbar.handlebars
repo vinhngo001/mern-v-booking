@@ -1,0 +1,71 @@
+<!--Navbar-->
+<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+    <a href="/" class="navbar-brand"><img src="/images/qut.png" alt="Logo" style="width:40px;"> QUT Booking</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item{{#if active.home}} active{{/if}}">
+                <a href="/" class="nav-link">Home</a>
+            </li>
+            {{#if user}}
+            <li class="nav-item dropdown{{#if active.business}} active{{/if}}">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                    aria-expanded="false">
+                    Service
+                </a>
+                <div class="dropdown-menu">
+                    <a href="/business/create" class="dropdown-item">New service</a>
+                    <a href="/business/list" class="dropdown-item">Manage services</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown{{#if active.staff}} active{{/if}}">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                    aria-expanded="false">
+                    Staff
+                </a>
+                <div class="dropdown-menu">
+                    <a href="/staff/create" class="dropdown-item">New staff</a>
+                    <a href="/staff/list" class="dropdown-item">Manage staff</a>
+                </div>
+            </li>
+            <li class="nav-item{{#if active.inbox}} active{{/if}}">
+                <a href="/mail" class="nav-link">Inbox</a>
+            </li>
+            <li class="nav-item{{#if active.calendar}} active{{/if}}">
+                <a href="/calendar" class="nav-link">Calendar</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                    aria-expanded="false">
+                    Booking
+                </a>
+                <div class="dropdown-menu">
+                    <a href="/events/create" class="dropdown-item">Create New Appointment</a>
+                </div>
+            </li>
+            
+            <li class="nav-item{{#if active.publish}} active{{/if}}">
+                <a href="/business/publish" class="nav-link">PUBLISH</a>
+            </li>
+            {{/if}}
+        </ul>
+        <ul class="navbar-nav justify-content-end">
+            {{#if user}}
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                    aria-expanded="false">
+                    <i class="fas fa-user"></i> {{user}}
+                </a>
+                <div class="dropdown-menu">
+                    <a href="/authorize/signout" class="dropdown-item"><i class="fas fa-power-off"></i> Sign Out</a>
+                </div>
+            </li>
+            {{else}}
+
+            {{/if}}
+        </ul>
+    </div>
+</nav>
