@@ -50,6 +50,11 @@ router.get("/list", async (req, res, next) => {
             res.render("staffs/index", parms);
         }).catch(err => {
             console.error(err.message);
+            parms.message = 'Error retrieving messages';
+            parms.error = {
+                status: `${err.code}: ${err.message}`
+            };
+            parms.debug = JSON.stringify(err.body, null, 2);
             next(err);
         })
     } else {
@@ -69,9 +74,19 @@ router.post("/create", async (req, res, next) => {
         new Staff({ ...newStaff })
             .save()
             .then(staff => res.redirect("/staff/list"))
-            .catch(err => next(err));
+            .catch(err => {
+                console.log(err.message);
+                let parms = {};
+                parms.message = 'Error retrieving messages';
+                parms.error = {
+                    status: `${err.code}: ${err.message}`
+                };
+                parms.debug = JSON.stringify(err.body, null, 2);
+                next(err);
+            });
     } else {
         res.redirect("/");
     }
-})
+});
+
 module.exports = router;
