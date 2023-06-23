@@ -1,23 +1,25 @@
-import React, { Component, Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { loadUser } from '../../redux/actions/authActions';
 import {
 	clientGetBusinesses,
 	getFreeSlots,
-	sendBooking
+	// sendBooking
 } from '../../redux/actions/eventActions';
 import classnames from 'classnames';
 import moment from 'moment';
-import { useParams } from "react-router-dom"
+import { useParams } from "react-router-dom";
 import {
 	CustomInput, Container, Label, TabContent, TabPane,
 	Nav, NavItem, NavLink, Button, Table, Modal, ModalHeader, ModalBody,
 	Form, FormGroup, Input, Card, CardHeader, CardBody, CardTitle, CardText, CardFooter
 } from 'reactstrap';
-import { loadUser } from '../../redux/actions/authActions';
 
 const EventCreate = ({ component: Component, ...rest }) => {
+	console.log({rest});
 	const { myauth, myevent } = useSelector(state => state);
 	const dispatch = useDispatch();
+
 	const inititalState = {
 		services: '',
 		activeTab: '',
@@ -42,21 +44,28 @@ const EventCreate = ({ component: Component, ...rest }) => {
 	}
 	const onServiceChange = (e) => {
 		setEvent({ ...event, [e.target.name]: e.target.value }, () => {
+			const services_data = {
+				service: event.services,
+				email: myauth.auth.email
+			};
 
+			dispatch(getFreeSlots(services_data));
 		});
-		console.log({ event })
+
+		// console.log({ event });
 		const service_data = {
 			service: event.services,
 			email: email
 		}
-		console.log({ service_data })
+
+		// console.log({ service_data })
 		dispatch(getFreeSlots(service_data))
 	}
 	const onBookingSubmit = (e) => {
 		e.preventDefault();
 	}
 	useEffect(() => {
-		console.log(event);
+		// console.log(event);
 		dispatch(loadUser())
 	}, [dispatch]);
 
@@ -100,7 +109,7 @@ const EventCreate = ({ component: Component, ...rest }) => {
 
 			if (myevent.bookingSuccessful) console.log('yay');
 		}
-	}, [myevent?.doneGetFreeSlots, myevent?.businesses, , myevent?.freeDays]);
+	}, [myevent?.doneGetFreeSlots, myevent?.businesses, , myevent?.freeDays, myevent?.bookingSuccessful]);
 
 	const onModalChange = (e) => {
 		setEvent({ ...event, [e.target.name]: e.target.value });
