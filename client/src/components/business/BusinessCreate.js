@@ -54,10 +54,10 @@ const BusinessCreate = () => {
                     myauth.isAuthenticated ? (
                         <Card className='mb-4'>
                             <CardBody>
-                                <h3>Service Information</h3>
+                                <h3>Business Information</h3>
                                 <Form onSubmit={handleSubmit}>
                                     <FormGroup>
-                                        <Label for='name'>Service name</Label>
+                                        <Label for='name'>Business name</Label>
                                         <Input
                                             type='text'
                                             name='name'

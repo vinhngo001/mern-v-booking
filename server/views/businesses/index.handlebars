@@ -1,7 +1,32 @@
-<div class="card text-center">
-    <div class="card-header bg-primary text-white">Your Business Booking</div>
-    <div class="card-body">
-        <h4 class="card-title">Copy the following URL and send it to your customers</h4>
-        <span class="border rounded-lg p-2">{{fullURL}}</span>
-    </div>
-</div>
+<table class="table table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th>Service</th>
+            <th>Duration</th>
+            <th>Assigned Staff</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each businesses}}
+            <tr>
+                <td>{{name}}</td>
+                <td>{{defaultHour}} hour(s) {{defaultMin}} minutes</td>
+                <td>Henry, Henry, Henry...</td>
+                <td>
+                    <a href="/business/edit/{{id}}" class="btn btn-info">
+                        <i class="fas fa-pen"></i> Edit
+                    </a>
+                    <form action="/business/delete/{{id}}?_method=DELETE" id="delete-form" method="POST">
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fas fa-trash-alt"></i> Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        {{else}}
+            <p>No businesses listed</p>
+        {{/each}}
+    </tbody>
+
+</table>

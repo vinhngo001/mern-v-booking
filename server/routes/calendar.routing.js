@@ -7,6 +7,13 @@ const calendarCtrl = require("../controllers/calendar.controller");
  * @desc List calendar
  * @access Public
 */
-router.get('/', calendarCtrl.list);
+router.get('/list', calendarCtrl.list);
+
+/**
+ * @route GET api/calendar
+ * @desc List calendar
+ * @access Public
+*/
+router.get('/', calendarCtrl.getCalendar);
 
 module.exports = router;
