@@ -16,7 +16,7 @@ const eventReducer = (state = initialState, action) => {
         case CLIENT_GET_BUSINESSES:
             return {
                 ...state,
-                businesses: [...action.payload]
+                businesses: action.payload.businesses
             };
 
         case CLIENT_GET_FREE_SLOTS:

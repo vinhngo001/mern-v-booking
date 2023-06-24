@@ -6,10 +6,10 @@ export const clientGetBusinesses = (email) => async (dispatch) => {
         const res = await axios.get(
             `http://localhost:3000/events/${email}`
         );
-        // console.log(res.data.event)
+        console.log(res.data.event)
         dispatch({
             type: CLIENT_GET_BUSINESSES,
-            payload: res.data.event.businesses
+            payload: {businesses: res.data.event.businesses}
         });
     } catch (error) {
         console.log(error.response);

@@ -61,7 +61,7 @@ const BusinessList = () => {
                                                 <Button
                                                     color='danger'
                                                     className='text-white'
-                                                    onClick={onDeleteClick(business._id)}
+                                                    onClick={()=>onDeleteClick(business._id)}
                                                 >
                                                     <i className='fas fa-trash-alt mr-1'></i>
                                                     Delete

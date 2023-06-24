@@ -38,7 +38,6 @@ const BusinessCreate = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(data);
         const business_data = {
             ...data,
             owner: myauth.auth_info.user,

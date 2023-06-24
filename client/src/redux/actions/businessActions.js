@@ -32,10 +32,8 @@ export const getBusinesses = (email) => async (dispatch) => {
 
 export const getOneBusiness = id => async (dispatch) => {
 	try {
-		const one_business = await getDataAPI(
-			`business/edit/${id}`
-		);
-
+		const one_business = await getDataAPI(`business/${id}`);
+		console.log(">>>>",one_business.data)
 		dispatch({
 			type: GET_ONE_BUSINESS,
 			payload: one_business.data
@@ -48,7 +46,7 @@ export const getOneBusiness = id => async (dispatch) => {
 
 export const editBusiness = (business_data, id) => async (dispatch) => {
 	try {
-		const editedBusiness = await putDataAPI(`edit/${id}`, business_data);
+		const editedBusiness = await putDataAPI(`business/${id}`, business_data);
 		dispatch({
 			type: EDIT_BUSINESS,
 			payload: editedBusiness.data
@@ -62,7 +60,7 @@ export const editBusiness = (business_data, id) => async (dispatch) => {
 export const deleteBusiness = id => {
 	const dispatchDeleteBusiness = async dispatch => {
 		try {
-			await deleteDataAPI(`business/delete/${id}`);
+			await deleteDataAPI(`business/${id}`);
 
 			dispatch({
 				type: DELETE_BUSINESS,

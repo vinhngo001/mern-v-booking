@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export const getDataAPI = async (url, token) => {
-    const res = await axios.get(`/api/${url}`, {
+    const res = await axios.get(`/${url}`, {
         withCredentials: true,
         // headers: { Authorization: token}
     })
@@ -17,7 +17,7 @@ export const postDataAPI = async (url, post, token) => {
 }
 
 export const putDataAPI = async (url, post, token) => {
-    const res = await axios.put(`/api/${url}`, post, {
+    const res = await axios.put(`/${url}`, post, {
         withCredentials: true,
         headers: { Authorization: token}
     })
@@ -25,7 +25,7 @@ export const putDataAPI = async (url, post, token) => {
 }
 
 export const patchDataAPI = async (url, post, token) => {
-    const res = await axios.patch(`/api/${url}`, post, {
+    const res = await axios.patch(`/${url}`, post, {
         withCredentials: true,
         headers: { Authorization: token}
     })
@@ -33,7 +33,7 @@ export const patchDataAPI = async (url, post, token) => {
 }
 
 export const deleteDataAPI = async (url, token) => {
-    const res = await axios.delete(`/api/${url}`, {
+    const res = await axios.delete(`/${url}`, {
         withCredentials: true,
         headers: { Authorization: token}
     })
